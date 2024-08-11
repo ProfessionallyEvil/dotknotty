@@ -237,3 +237,4 @@ FodyWeavers.xsd
 *.db
 *.sqlite
 *.sqlite3
+*.db-*
