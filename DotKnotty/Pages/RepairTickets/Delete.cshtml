@@ -1,11 +1,12 @@
 @page
-@model DotKnotty.Pages.RepairTickets.DetailsModel
+@model DotKnotty.Pages.RepairTickets.DeleteModel
 @{
-    ViewData["Title"] = "Repair Ticket Details";
+    ViewData["Title"] = "Delete Repair Ticket";
 }
 
 <h1>@ViewData["Title"]</h1>
 
+<h3>Are you sure you want to delete this repair ticket?</h3>
 <div>
     <h4>Repair Ticket</h4>
     <hr />
@@ -59,31 +60,10 @@
             @Html.DisplayFor(model => model.RepairTicket.CreatedAt)
         </dd>
     </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="RepairTicket.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </form>
 </div>
-
-<h4>Update Description</h4>
-<form method="post">
-    <input type="hidden" asp-for="RepairTicket.Id" />
-    <input type="hidden" asp-for="RepairTicket.UserId" />
-    <input type="hidden" asp-for="RepairTicket.ShipConfigurationId" />
-    <input type="hidden" asp-for="RepairTicket.Component" />
-    <input type="hidden" asp-for="RepairTicket.Status" />
-    <input type="hidden" asp-for="RepairTicket.Price" />
-    <input type="hidden" asp-for="RepairTicket.CreatedAt" />
-    <div class="form-group">
-        <label asp-for="RepairTicket.Description" class="control-label"></label>
-        <textarea asp-for="RepairTicket.Description" class="form-control" rows="3"></textarea>
-        <span asp-validation-for="RepairTicket.Description" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <input type="submit" value="Update" class="btn btn-primary" />
-    </div>
-</form>
-
-<div>
-    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
