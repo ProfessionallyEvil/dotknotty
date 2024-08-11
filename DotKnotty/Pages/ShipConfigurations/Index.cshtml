@@ -47,7 +47,6 @@
                         <td>@item.WeaponsLevel</td>
                         <td>@item.ShieldLevel</td>
                         <td>
-                            <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
                             <a asp-page="./Details" asp-route-config="@item.SerializedConfig" class="btn btn-sm btn-info">Details</a>
                             <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                         </td>
