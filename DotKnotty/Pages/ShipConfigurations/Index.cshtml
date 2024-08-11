@@ -1,0 +1,59 @@
+@page
+@model DotKnotty.Pages.ShipConfigurations.IndexModel
+@{
+    ViewData["Title"] = "Ship Configurations";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Create New Ship Configuration</h2>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="NewShipConfiguration.ShipName"></label>
+                <input asp-for="NewShipConfiguration.ShipName" class="form-control" />
+                <span asp-validation-for="NewShipConfiguration.ShipName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewShipConfiguration.WeaponsLevel"></label>
+                <input asp-for="NewShipConfiguration.WeaponsLevel" class="form-control" />
+                <span asp-validation-for="NewShipConfiguration.WeaponsLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NewShipConfiguration.ShieldLevel"></label>
+                <input asp-for="NewShipConfiguration.ShieldLevel" class="form-control" />
+                <span asp-validation-for="NewShipConfiguration.ShieldLevel" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">Create</button>
+        </form>
+    </div>
+    <div class="col-md-8">
+        <h2>Existing Configurations</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ship Name</th>
+                    <th>Weapons Level</th>
+                    <th>Shield Level</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ShipConfigurations)
+                {
+                    <tr>
+                        <td>@item.ShipName</td>
+                        <td>@item.WeaponsLevel</td>
+                        <td>@item.ShieldLevel</td>
+                        <td>
+                            <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-page="./Details" asp-route-config="@item.SerializedConfig" class="btn btn-sm btn-info">Details</a>
+                            <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

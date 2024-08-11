@@ -1,0 +1,35 @@
+@page
+@model DotKnotty.Pages.ShipConfigurations.DetailsModel
+@{
+    ViewData["Title"] = "Ship Configuration Details";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>Ship Configuration</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipConfig.ShipName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ShipConfig.ShipName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipConfig.WeaponsLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ShipConfig.WeaponsLevel)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipConfig.ShieldLevel)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ShipConfig.ShieldLevel)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Index" class="btn btn-primary">Back to List</a>
+</div>

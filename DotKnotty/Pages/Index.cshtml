@@ -1,0 +1,23 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to DotKnotty</h1>
+    <p>Your one-stop shop for space pirate ship repairs!</p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <h2>Ship Configurations</h2>
+        <p>Manage your ship configurations and prepare for repairs.</p>
+        <a class="btn btn-primary" asp-page="/ShipConfigurations/Index">Go to Ship Configurations</a>
+    </div>
+    <div class="col-md-6">
+        <h2>Repair Tickets</h2>
+        <p>Create and manage your repair tickets.</p>
+        <a class="btn btn-primary" asp-page="/RepairTickets/Index">Go to Repair Tickets</a>
+    </div>
+</div>
