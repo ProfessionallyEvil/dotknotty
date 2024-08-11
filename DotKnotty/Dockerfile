@@ -23,3 +23,7 @@ EXPOSE 80
 
 # Set the entry point for the application
 ENTRYPOINT ["sh", "-c", "dotnet DotKnotty.dll && dotnet ef database update"]
+
+LABEL org.opencontainers.image.source=https://github.com/ProfessionallyEvil/dotknotty
+LABEL org.opencontainers.image.description="Vulnerable dotnet demo application."
+LABEL org.opencontainers.image.licenses="MIT"
