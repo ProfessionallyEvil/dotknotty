@@ -19,6 +19,17 @@
                 <span asp-validation-for="RepairTicket.ShipConfigurationId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="RepairTicket.Component" class="control-label">Component</label>
+                <select asp-for="RepairTicket.Component" class="form-control">
+                    <option value="">-- Select Component --</option>
+                    <option value="Weapons">Weapons</option>
+                    <option value="Shields">Shields</option>
+                    <option value="Engines">Engines</option>
+                    <option value="Hull">Hull</option>
+                </select>
+                <span asp-validation-for="RepairTicket.Component" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="RepairTicket.Description" class="control-label"></label>
                 <textarea asp-for="RepairTicket.Description" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="RepairTicket.Description" class="text-danger"></span>

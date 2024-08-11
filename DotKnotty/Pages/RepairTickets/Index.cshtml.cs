@@ -17,7 +17,7 @@ namespace DotKnotty.Pages.RepairTickets
             _context = context;
         }
 
-        public IList<RepairTicket> RepairTickets { get; set; } = new List<RepairTicket>();
+        public IList<DotKnotty.Models.RepairTicket> RepairTickets { get; set; } = new List<DotKnotty.Models.RepairTicket>();
 
         public async Task OnGetAsync()
         {
@@ -25,6 +25,7 @@ namespace DotKnotty.Pages.RepairTickets
             RepairTickets = await _context.RepairTickets
                 .Include(r => r.ShipConfiguration)
                 .Where(r => r.UserId == userId)
+                .OrderByDescending(r => r.CreatedAt)
                 .ToListAsync();
         }
     }

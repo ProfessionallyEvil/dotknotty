@@ -13,9 +13,11 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Ticket ID</th>
             <th>Ship Name</th>
-            <th>Description</th>
+            <th>Component</th>
             <th>Status</th>
+            <th>Price</th>
             <th>Created At</th>
             <th>Actions</th>
         </tr>
@@ -24,12 +26,13 @@
         @foreach (var item in Model.RepairTickets)
         {
             <tr>
+                <td>@item.Id</td>
                 <td>@item.ShipConfiguration?.ShipName</td>
-                <td>@item.Description</td>
+                <td>@item.Component</td>
                 <td>@item.Status</td>
+                <td>@item.Price GalactiCredits</td>
                 <td>@item.CreatedAt</td>
                 <td>
-                    <a asp-page="./Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Edit</a>
                     <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Details</a>
                     <a asp-page="./Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Delete</a>
                 </td>

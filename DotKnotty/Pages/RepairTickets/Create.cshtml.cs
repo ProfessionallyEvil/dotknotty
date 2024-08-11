@@ -64,8 +64,18 @@ namespace DotKnotty.Pages.RepairTickets
                     return Page();
                 }
 
+                // Set the price based on the selected component
+                RepairTicket.Price = RepairTicket.Component switch
+                {
+                    "Weapons" => 1200m,
+                    "Shields" => 800m,
+                    "Engines" => 1600m,
+                    "Hull" => 500m,
+                    _ => 0m
+                };
+
                 _logger.LogInformation($"Creating repair ticket for user: {RepairTicket.UserId}");
-                _logger.LogInformation($"Repair ticket details: ShipConfigurationId: {RepairTicket.ShipConfigurationId}, Description: {RepairTicket.Description}");
+                _logger.LogInformation($"Repair ticket details: ShipConfigurationId: {RepairTicket.ShipConfigurationId}, Component: {RepairTicket.Component}, Price: {RepairTicket.Price}, Description: {RepairTicket.Description}");
 
                 _context.RepairTickets.Add(RepairTicket);
                 var result = await _context.SaveChangesAsync();

@@ -19,5 +19,10 @@ namespace DotKnotty.Models
         public int ShipConfigurationId { get; set; }
         
         public ShipConfiguration? ShipConfiguration { get; set; }
+
+        [Required]
+        public string Component { get; set; } = string.Empty;
+
+        public decimal Price { get; set; }
     }
 }

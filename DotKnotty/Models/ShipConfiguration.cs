@@ -33,33 +33,5 @@ namespace DotKnotty.Models
             get => _serializedConfig;
             set => _serializedConfig = value;
         }
-
-        // This property is intended for logging, but introduces a vulnerability
-        [NotMapped]
-        public ILogger Logger { get; set; } = new FileLogger();
-
-        [OnDeserialized]
-        private void OnDeserialized(StreamingContext context)
-        {
-            // Log the deserialization event
-            Logger.Log($"Ship configuration loaded: {ShipName}");
-        }
-    }
-
-    // Remove [Serializable] from the interface
-    public interface ILogger
-    {
-        void Log(string message);
-    }
-
-    [Serializable]
-    public class FileLogger : ILogger
-    {
-        public string LogFilePath { get; set; } = "C:\\temp\\ship_log.txt";
-
-        public void Log(string message)
-        {
-            File.AppendAllText(LogFilePath, message + Environment.NewLine);
-        }
     }
 }
