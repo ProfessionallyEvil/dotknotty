@@ -64,12 +64,7 @@
 <h4>Update Description</h4>
 <form method="post">
     <input type="hidden" asp-for="RepairTicket.Id" />
-    <input type="hidden" asp-for="RepairTicket.UserId" />
-    <input type="hidden" asp-for="RepairTicket.ShipConfigurationId" />
     <input type="hidden" asp-for="RepairTicket.Component" />
-    <input type="hidden" asp-for="RepairTicket.Status" />
-    <input type="hidden" asp-for="RepairTicket.Price" />
-    <input type="hidden" asp-for="RepairTicket.CreatedAt" />
     <div class="form-group">
         <label asp-for="RepairTicket.Description" class="control-label"></label>
         <textarea asp-for="RepairTicket.Description" class="form-control" rows="3"></textarea>

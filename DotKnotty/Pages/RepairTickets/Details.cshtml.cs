@@ -48,7 +48,7 @@ namespace DotKnotty.Pages.RepairTickets
         {
             _logger.LogInformation("OnPostAsync started");
 
-            if (!ModelState.IsValid)
+            if (!TryValidateModel(RepairTicket, nameof(RepairTicket)))
             {
                 _logger.LogWarning("ModelState is invalid");
                 foreach (var modelState in ModelState.Values)
@@ -64,8 +64,38 @@ namespace DotKnotty.Pages.RepairTickets
             _logger.LogInformation($"Updating repair ticket: {RepairTicket.Id}");
             _logger.LogInformation($"New description: {RepairTicket.Description}");
 
-            // Mass Assignment Vulnerability: Update using the bound model
-            _context.Attach(RepairTicket).State = EntityState.Modified;
+            // Fetch the existing ticket
+            var existingTicket = await _context.RepairTickets.FindAsync(RepairTicket.Id);
+            if (existingTicket == null)
+            {
+                return NotFound();
+            }
+
+            // Store original values of fields we want to protect from unintended updates
+            var originalShipConfigurationId = existingTicket.ShipConfigurationId;
+            var originalUserId = existingTicket.UserId;
+            var originalCreatedAt = existingTicket.CreatedAt;
+            var originalComponent = existingTicket.Component;
+            var originalPrice = existingTicket.Price;
+
+            // Explicitly update the description
+            existingTicket.Description = RepairTicket.Description;
+
+            // Mass Assignment Vulnerability: 
+            // Update all properties from the bound model, potentially allowing unintended updates
+            _context.Entry(existingTicket).CurrentValues.SetValues(RepairTicket);
+
+            // Protect certain fields from unintended updates
+            existingTicket.ShipConfigurationId = originalShipConfigurationId;
+            existingTicket.UserId = originalUserId;
+            existingTicket.CreatedAt = originalCreatedAt;
+            existingTicket.Component = originalComponent;
+
+            // Only update the price if it was changed in the bound model
+            if (RepairTicket.Price == 0 || RepairTicket.Price == originalPrice)
+            {
+                existingTicket.Price = originalPrice;
+            }
 
             try
             {
@@ -84,18 +114,11 @@ namespace DotKnotty.Pages.RepairTickets
                     return Page();
                 }
             }
-            catch (DbUpdateConcurrencyException ex)
+            catch (DbUpdateException ex)
             {
                 _logger.LogError(ex, "An error occurred while updating the repair ticket");
-                if (!RepairTicketExists(RepairTicket.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "An error occurred while updating the repair ticket. Please try again.");
-                    return Page();
-                }
+                ModelState.AddModelError(string.Empty, "An error occurred while updating the repair ticket. Please try again.");
+                return Page();
             }
         }
 
